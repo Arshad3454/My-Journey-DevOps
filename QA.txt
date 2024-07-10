@@ -3,4 +3,7 @@ DevOps
 1 :What is DevOps
 Ans: DevOps is the process of improving the Application Delivery, By ensuring that there is a proper automation with code quality and ensuring continuous monitoring and continuous testing.
 
- 
+
+SDLC -Software development life cycle
+Planning -> Defining -> Designing -> Building -> Testing -> Deploy
+ As a DevOps engineer ->design, develop, test the Product

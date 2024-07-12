@@ -4,6 +4,79 @@ DevOps
 Ans: DevOps is the process of improving the Application Delivery, By ensuring that there is a proper automation with code quality and ensuring continuous monitoring and continuous testing.
 
 
+Day 2:
 SDLC -Software development life cycle
 Planning -> Defining -> Designing -> Building -> Testing -> Deploy
- As a DevOps engineer ->design, develop, test the Product
+ As a DevOps engineer ->Building -> Testing -> Deploy   
+
+
+Day 3:
+Hypervisor :A hypervisor is a software that you can use to run multiple virtual machines on a single physical machine
+        (Break the Pysical server to logically many)
+
+Day 4:
+Git 
+    -git init :create or initialize a repository
+    -git status
+    -git add <name>
+    -git commit -m "message"
+    -git push   :put this in to GitHub
+        (git add && git commit -m "" & git push)
+
+    -git log & -git log --oneline 
+    -git remote -v :to check the remote reference
+    -git rmote add "account & repo"
+    -git clone ""  :pull the code from GitHub
+
+    -git checkout  -switch to diffrent branch and create a branch
+    -git branch = git check -b ->craeate the branch
+
+    Git clone and Git Fork
+        Clone: download repository
+        Fork :Make copy of repository
+    
+    git log
+    -git cherry-pick :git cherry-pick (logs-id) -its easy for small changes 
+    
+    -git merge 
+    -git rebase
+        git checkout feuture
+        git merge main 
+    Merge and rebase :randum merge cheayyanulla option aan .But 'rebase' aan nallath ,Enth kondannal rebase oru linear flow follow cheayyunnund.
+    git merge ath update aakumbo 
+
+
+
+
+Day 5:
+Configuration Management
+    :Puupet, Chef, Ansible ...
+    
+    -why Ansible better :
+    Ansible: Push mechanism , Agentless ,good with windows & linux ,Yaml language
+    Puppet : pull mechanism, master slave architecture( like need to go and update all server), puppet language
+    
+    Ansible draw back :Have some issue wildows ,Not good with debugging ,performance 
+    ? Does Ansible support windows and kinux.
+    ans : Yes , Linux :ssh protocol , windows :win RM
+
+
+Ansible installation
+    -sudo apt install ansible
+
+setting up passwordless authentication.
+-created 2 servers  Ansible server &target_server
+In first server
+ -ssh keygen
+    ls /home/ubunt/.ssh
+    cat ......id_rsa.pub and copy the key and login to second server
+Target server
+    -Do ssh -keygen  here as well
+    - ls ~/.ssh/ and open the autherized_keys and paste the content here.
+    Go th first servwe: -ssh ipaddress off target_server
+
+Inventory file in Ansible :Store target file ka private ip
+    - vim inventory
+    - ansible -i inventory <ip> -m "shell" -a touch "DevOps session"
+Ansible adhoc commands
+- ansible -i inventory <ip> -m "shell" -a touch "DevOps session"

@@ -77,6 +77,35 @@ Target server
 
 Inventory file in Ansible :Store target file ka private ip
     - vim inventory
+
     - ansible -i inventory <ip> -m "shell" -a touch "DevOps session"
 Ansible adhoc commands
-- ansible -i inventory <ip> -m "shell" -a touch "DevOps session"
+    - ansible -i inventory <ip> -m "shell" -a touch "DevOps session" 
+-we can do grouping in servers in inventory file and also we can run certain niumber of servers(grouped servers).
+
+Ansible play Book:whaen we want to run multiple task
+    -Yaml format
+    
+    PlayBook example
+    ---
+    -   name: install and start nginx
+        host: all
+        become: root
+    
+        tasks:
+            - name: install nginix
+               apt:
+                name: nginx             --> 
+                state: present          ->shell: apt install nginx
+        
+            - name: start nginx
+               service: 
+                name: nginx             -->
+                state: started          --> shell: systemctl start nginx
+
+To run the Ansible PlayBook:- ansible-Playbook -i inventory (nameof PlayBook.yml)
+                              ansible-Playbook --v -i inventory firstplaybook.yml
+    
+    Ansible Roles: Efficient way to write Ansible PlayBook
+        #ansible-galaxy role init kubernetes -it will create a kubernets directory and inside bunch of files and folders will be there , eg(templates, handlers,file...)
+            Using this we can structure ansible PlayBook. 

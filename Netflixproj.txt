@@ -1,0 +1,69 @@
+-Install a linux server
+Install jenkins in  server  
+    -Add jenkins repo
+    (Linux) sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+    sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+    or 
+    ubuntu 
+
+    -Install and setup javaHome
+    sudo apt install openjdk-17-jdk (sudo dnf install java-11-amazon-corretto -y) ,vi /etc/environment    PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+    JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
+ .   
+    amzon linux( sudo yum install java-17-amazon-corretto-headless), vi ~/.bashrc ,export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export PATH=$JAVA_HOME/bin:$PATH
+
+    sudo yum install jenkins
+    sudo systemctl enable jenkins
+    sudo systemctl start jenkins 
+    sudo systemctl status jenkins
+
+Tomcat
+    wget https://downloads.apache.org/tomcat/tomcat-9/v9.0.91/bin/apache-tomcat-9.0.91.tar.gz.asc
+
+    context.xml - allow tag=".*"/> ---->to get complete access for tomcat. (webapp /manager/meta-infa/context.xml)
+
+    <role rolename="manager-gui"/>
+    <role rolename="manager-script"/>
+    <role rolename="admin-gui"/> 
+    <user username="tomcat" password="tomcat" roles="manager-gui"/>
+    <user username="arshad" password="1234" roles="manager-gui,admin-gui,manager-script"/>
+
+    port change :Conf ->server.xml ->scroll down up to see connector-port="8080" and change this to "9090"
+    cd bin ->./shutdown.sh ->./startup.sh
+
+Install Deploy to container plugin -Jenkins to tomcat connection
+Jenkins going to execute some script todeploy the war file in to the tomcat server
+        -Add manager-script role in tomcate-users.xml file (CONF)
+           scroll down till  see "role rolename="manager-gui''', go to the last but-one line and type the below <role rolename-"manager-script" >
+            Goto the last line of "user username="admin', and type manager-script at the last,
+
+Git install on vm
+
+Pypeline syntax -sample step:Git
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone the Repo') {
+            steps {
+                git credentialsId: 'NetflixProj', url: 'https://github.com/Arshad3454/Netflix-Pipeline-Project.git'
+            }
+        }
+        stage('Maven Build Stage') {
+            steps {
+                script {
+                    def mavenHome = tool name: 'maven s/w', type: 'maven'
+                    def mavenCMD = "${mavenHome}/bin/mvn"
+                    sh "${mavenCMD} clean package"
+                }
+            }    
+        }
+        stage('Deploy Staging') {
+            steps {
+                sh 'sudo cp target/NETFLIX-1.2.2.war /home/ubuntu/apache-tomcat-9.0.91/webapps'
+            }
+        }
+    }
+}

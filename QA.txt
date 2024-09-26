@@ -1,5 +1,3 @@
-DevOps
-
 1 :What is DevOps
 Ans: DevOps is the process of improving the Application Delivery, By ensuring that there is a proper automation with code quality and ensuring continuous monitoring and continuous testing.
 
@@ -14,98 +12,44 @@ Day 3:
 Hypervisor :A hypervisor is a software that you can use to run multiple virtual machines on a single physical machine
         (Break the Pysical server to logically many)
 
-Day 4:
-Git 
-    -git init :create or initialize a repository
-    -git status
-    -git add <name>
-    -git commit -m "message"
-    -git push   :put this in to GitHub
-        (git add && git commit -m "" & git push)
 
-    -git log & -git log --oneline 
-    -git remote -v :to check the remote reference
-    -git rmote add "account & repo"
-    -git clone ""  :pull the code from GitHub
+Kubernetes:
 
-    -git checkout  -switch to diffrent branch and create a branch
-    -git branch = git check -b ->craeate the branch
-
-    Git clone and Git Fork
-        Clone: download repository
-        Fork :Make copy of repository
-    
-    git log
-    -git cherry-pick :git cherry-pick (logs-id) -its easy for small changes 
-    
-    -git merge 
-    -git rebase
-        git checkout feuture
-        git merge main 
-    Merge and rebase :randum merge cheayyanulla option aan .But 'rebase' aan nallath ,Enth kondannal rebase oru linear flow follow cheayyunnund.
-    git merge ath update aakumbo 
+1- what is the diffrence between docker and kubernstus
+Ans: docker is a container platform , K8 is container orchstation  enviournment that offers capabilities like autohealing, auto scaling,
+     clusturing and enterprise level support like loadbalencing.
+     
+2- what are the main components of K8 architecture
+Ans : 1- control plane:APi server, sheduler, control manager, ETCD 
+           -api server :take all request from external world.
+            -scheduler :its schedule the works.
+            -ETCD : store all information 
+            -controller managements :
+      2- Data plane :kubelet-managing the pod , kube-proxy- networking components , contaioner runtime-
 
 
+3-diffrence b/w k8 and docker swarm.
+    k8 is better suited for large and middle orgainaisation, k8 is offers more scalablity.k8 huge 3rd party support.
 
+4- diffrence b//w docker container and k8 pods 
+    k8 pods is a run time specification of a container
 
-Day 5:
-Configuration Management
-    :Puupet, Chef, Ansible ...
-    
-    -why Ansible better :
-    Ansible: Push mechanism , Agentless ,good with windows & linux ,Yaml language
-    Puppet : pull mechanism, master slave architecture( like need to go and update all server), puppet language
-    
-    Ansible draw back :Have some issue wildows ,Not good with debugging ,performance 
-    ? Does Ansible support windows and kinux.
-    ans : Yes , Linux :ssh protocol , windows :win RM
+5- what is a namespace in k8
+    namespace is a logical isolation of resources, network,policies, rbac and everything.
 
+6- what is the role of kube-proxy
+    kube-proxy basically about configuring the networking eules in each of the node.
 
-Ansible installation
-    -sudo apt install ansible
+7- what are the diffrent services in K8
+         - load balancing :
+        - service discovery : pods will identify using label and selectors
+        - expose to external world
 
-setting up passwordless authentication.
--created 2 servers  Ansible server &target_server
-In first server
- -ssh keygen
-    ls /home/ubunt/.ssh
-    cat ......id_rsa.pub and copy the key and login to second server
-Target server
-    -Do ssh -keygen  here as well
-    - ls ~/.ssh/ and open the autherized_keys and paste the content here.
-    Go th first servwe: -ssh ipaddress off target_server
+8- diffrence b/w load balencer and NodePort service
 
-Inventory file in Ansible :Store target file ka private ip
-    - vim inventory
+9- what is the role of kubelet
+    kubelet manage the containers that are sheduled to run on that node.it ensure that containers are running healhy, and that the resourcesthey need are available.
 
-    - ansible -i inventory <ip> -m "shell" -a touch "DevOps session"
-Ansible adhoc commands
-    - ansible -i inventory <ip> -m "shell" -a touch "DevOps session" 
--we can do grouping in servers in inventory file and also we can run certain niumber of servers(grouped servers).
-
-Ansible play Book:whaen we want to run multiple task
-    -Yaml format
-    
-    PlayBook example
-    ---
-    -   name: install and start nginx
-        host: all
-        become: root
-    
-        tasks:
-            - name: install nginix
-               apt:
-                name: nginx             --> 
-                state: present          ->shell: apt install nginx
-        
-            - name: start nginx
-               service: 
-                name: nginx             -->
-                state: started          --> shell: systemctl start nginx
-
-To run the Ansible PlayBook:- ansible-Playbook -i inventory (nameof PlayBook.yml)
-                              ansible-Playbook --v -i inventory firstplaybook.yml
-    
-    Ansible Roles: Efficient way to write Ansible PlayBook
-        #ansible-galaxy role init kubernetes -it will create a kubernets directory and inside bunch of files and folders will be there , eg(templates, handlers,file...)
-            Using this we can structure ansible PlayBook. 
+10- Day to Day activites in K8
+    we mange k8 cluster our organaisation.we ensure applications are deployed on k8 cluster.and ensure there is no issue with application 
+    and we setup motiotoring on k8 cluster .....

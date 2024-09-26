@@ -1,0 +1,42 @@
+1 tier Architecture :Only work on local system.
+2 tier Architecture : clinet lier and server liers are sepratly avilable.
+3 tier Architecture : clinet lier ,application lier & DB lier sepratly
+
+-Maven:Maven is a tool used to build create the initial project folder.
+    Pom.xml :dependencies are required for application all dependencies need to configure in pom.xml
+    POM-project object model
+    Maven will create pom.xml we need to configure the file
+    Compailation: .java-> .class
+    packaging the all files
+
+    compile java file ->javac filename.java
+    run the file ->java filename
+
+-Maven terminology
+   1.Architype ->type of project going to create.
+        maven-archetype-quickstart ----->standalone application
+        maven-archetype-webapp----------->web application creation
+
+    2.group ID ->compony name or project name
+
+    3.Artifact ID ->Project name or project module name
+
+    4.Packaging
+
+Web application using Maven 
+       mvn archetype:generate -DarchetypeArtifactId=maven-archetype-webapp -DgroupId=in.Ekacare -DartifactId=02-Maven-WebApp -DinteractiveMode=false
+
+     https://mvnrepository.com/
+
+ - All the maven goals should be executed where the pom.xml file is available
+    1-clean   -mvn clean     :old target folder will get deleted
+    2-compile -mvn compile   :target folder will created
+    3-package -mvn package   :in the target folder war file will get create
+
+Git
+    -git stash :to store the present work in temporary location.
+    -git stash apply :to go back previous work
+
+    -git checkout <branchname> :To switch the branches
+    -vim .gitignore ->we can add ignored files
+

@@ -1,0 +1,25 @@
+ssh-keygen -t rsa -b 4096 -f arshad_key :generate a public key
+scp -i "ec2.pem" arshad_key.pub ec2-user@<instanceIP>:~/ :copy the public key in to instance key
+ssh -i "ec2.pem" ec2-user@<ec2-IP> :log in to ec2
+sudo su
+mkdir -p /home/newuser/.ssh :Create the .ssh directory 
+chmod 700 /home/newuser/.ssh :provide required access
+mv /home/ec2-user/arshad_key.pub /home/newuser/.ssh/authorized_keys :Move the public key to authorized_keys
+chmod 600 /home/newuser/.ssh/authorized_keys :set the required permission
+chown -R newuser:newuser /home/newuser/.ssh
+
+Login from local machine: ssh -i arshad_key newuser@<EC2-Instance-Public-IP>
+
+
+sudo useradd user1
+sudo passwd -d user1
+sudo visudo
+username ALL=(ALL) NOPASSWD:ALL
+
+su user 1
+
+
+
+
+
+

@@ -1,0 +1,107 @@
+Containaraization  -proccess of packaging the application along with its dependencies.
+ -docker ps
+ -docker ps -a
+ -docker images
+ -docker pull 
+ -docker run <image_name> :used to create container
+ - 3 modes:-
+        -forground mode/Attached mode       docker run <image_name>
+        -background mode/Deattached mode    docker run -d <image_name>
+        -ittractive mode                    docker run -it <image_name>
+
+
+-docker start <container-id>
+-docker exec -it <container id> bash
+-docker stop <container-id>
+-docker rm <container name>      -remove container
+-docker rmi               -remove image_name
+-docker volume list
+-docker volume create <volume_name>
+-docker volume inspect <volume_name>
+
+Docker volume
+    docker run -it --mount source=Myvolume_1,destination=/Myvolume_1 centos bash
+
+port mapping
+    docker run -it -p 8085:8080 tomcat:8.01
+
+-docker commit -used to create a new container based on existing container.
+    docker commit <container_id> <new_imgid>
+
+-Publish image
+    docker login -u Arshad3454
+    Password:copy from access token and paste it.
+-docker push <image_name>:tag
+
+-docker build:uses to create a new container imagebased on docker file definition.
+
+Docker file:
+
+FROM: definr the base image
+RUN: run packeage managers
+COPY: copy file from Host mechine to container path
+ADD: same COPY also used to copy the file from url
+CP : copy file with in the container
+WORKDIR: specified the current working directory
+EXPOSE: setup container port
+ENV: setup the env variable in the image
+VOLUME: define the volume to be used in image
+CMD: execute command for run the container
+ENTRYPOINT: execute for run the container 
+
+docker build
+
+
+Docker compose
+ -used to running multi containers
+    docker compose up
+    docker compose down
+
+
+Container orchestration tool
+ -Ensure high availablity of containers
+    1-Docker swarm
+    2-Kubernets
+
+
+
+Kubernets:
+    -it is a open-source container orchaestration tool.
+    -used to ensure high availablity of containers/pods.
+    -Auto scaling is possible.
+ 
+  - Kubernets master node :shedule the deployement to the worker nodes
+  - Kubernets worker nodes:used to run the application container/pods
+
+Components of Kubernets Architecture
+  -Api server :receive the incoming request and valid request and update the request details in ETCD data base.
+  -ETCD: it will update Yaml file mode.
+  -scheduler :identify  the healthy workerNode for deployement
+  -controller manager : its responsible to run the Pods/containers in its desired state.
+                        Ensure the high availablity by creating replicas.
+  -Kublet :it is responsible for to start/deploy the containers/pods.
+  -CRI :used to download the container images from container registry.
+  -kube-proxy :used to establix networking b/w nodes.
+               responsible to assign unique ip address for POD to communication.
+
+
+Pods : Smallest deployable unit of task you perform in Kubernets -used to run the containers in kubernets
+deployments: Deployment is like a set of instructions and rules for running and managing Pods
+
+service : its directs the traffic to the right Pods, making it easy to access and manage your application.
+    Nodeprt service :used to expose the pod to internet
+    cluster ip :internal communication b/w pods
+    Load balancer service:
+ingress :Services provide basic connectivity and exposure for applications, while Ingress offers advanced routing and traffic management
+secrets :store and manage the sensitive infirmation , such as tokens ,passwords and keys
+
+Application handle and store data
+Stateless: No need to remember anything from one request to the next. Managed with Deployments.
+Stateful: Needs to remember data and maintain consistency. Managed with StatefulSets.
+
+
+  
+
+
+
+

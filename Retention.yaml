@@ -1,0 +1,44 @@
+name: set-cloudWatch-logs-retention
+
+on:
+  schedule:
+    - cron: '0 1 */3 * *'
+  workflow_dispatch:
+
+jobs:
+  dev-account-set-retention:
+    runs-on: dev-ec2-server
+    container:
+      image: python:3.10-slim
+
+    steps:
+
+
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+
+    - name: Install dependencies
+      run: pip install boto3
+
+    - name: Run the Python script
+      env: 
+        AWS_REGION: ap-south-1
+      run: python aws-cloudwatch/retention/retention.py
+   
+  # prod-account-set-retention:
+    
+  #   runs-on: prod-ec2-server
+
+  #   steps:
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v3
+
+  #   - name: Run the Python script
+  #     env: 
+  #       AWS_REGION: ap-south-1
+  #     run: python Retention.py 
+
+
+  
+       

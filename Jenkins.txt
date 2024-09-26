@@ -1,0 +1,133 @@
+TOMCAT 
+ -Portnumber:8080
+
+=>BIN :start and stop the tomcat server. (startup.sh / shutdown.sh)
+=>CONF : server.xml  -> port edit and other
+        tomcat-users.xml ->edit user details
+=>LOGS :
+=>TEMP :
+=>WEBAPP: will keep warfiles ,called "deployement" folder
+        context.xml - allow tag=".*"/> ---->to get complete access for tomcat. (webapp /manager/meta-infa/context.xml)
+
+   tomcat-users.xml (confil aan) => to provide user access.
+     <role rolename="manager-gui" >
+     <user username="tomcat" password="tomcat" roles="manager-gui" >
+     <role rolename="admin-gui" >
+     <user username="arshad" password="1234" roles="manager-gui, admin-gui" >
+     
+     .war file will be in target file.
+
+
+Jenkins
+    Install in ubuntu:
+    sudo apt install openjdk-11-jdk
+
+    -add the Jenkins repo and GPG key
+    wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add - 
+    sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+    
+    -add the GPG key
+     sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 5BA31D57EF5975CA
+
+    or )
+    curl -fsSL https://pkg.jenkins.io/debian/jenkins.io-2023.key | sudo tee \
+  /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+  https://pkg.jenkins.io/debian binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null )
+
+
+  Amazon linux (sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key)
+
+  Java 17 and JAVA_HOME path setting is compulsory.(in ubuntu ,mattath naan nokkeetilla)
+      sudo apt install openjdk-17-jdk , vi /etc/profile    PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
+
+  sudo apt install jenkins -y
+  sudo systemctl enable jenkins
+  sudo systemctl start Jenkins
+  sudo systemctl status jenkins
+
+Tomcat installatin and Port change 
+    -port change :Conf ->server.xml ->scroll down up to see connector-port="8080" and change this to "9090"
+    cd bin ->./shutdown.sh ->./startup.sh
+
+
+    -Thorotle builds- to restrict the build count
+    Deploy to container plugin -Jenkins to tomcat connection
+ 
+ Project (Jenkins+GitHub+Maven+Tomcat)
+    step 1:Jenkins installation -(sudo curl -0 https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.91/bin/apache-tomcat-9.0.91.tar.gz)
+    step 3:Tomcat webserver installation
+            -change tomcat port ,...
+            -get complete tomcat server access :webapp => manger=>MetaINf=>context.xml (valve-tag=".*")
+    step 3:install git on vm 
+
+    step 4:Jenkins going to execute some script todeploy the war file in to the tomcat server
+        -Add manager-script role in tomcate-users.xml file (CONF)
+           scroll down till  see "role rolename="manager-gui''', go to the last but-one line and type the below <ole rolename-"manager-script" >
+                Goto the last line of "user username="admin', and type manager-script at the last,
+
+    step 5:install "Deploy to container plugin"  in jenkins
+        Git note link :https://github.com/Arshad3454/Linux-Module/blob/main/Jenkins/Jenkins-Day02.pdf
+
+    Poll scm:it will check all minuts any chages are happend ,if its happend it will trigger new build.
+
+
+
+
+
+
+GitHub WebHooks
+    -it will trigger the buld moment we commit in the code repository
+  PAT  -personal Access token -For private repository (settings->developer settings->PAT ->token classic) (normally we can setup in Jenkins)
+  Ssh key-
+    -webhook  :
+         In Github repo:
+         payload url- http://jenkins url/github-webhook/
+         contenttype- application/json
+
+         In jenkins :
+         Build triggers -Github hook trigger for GISTM polling
+
+
+Pipelines:
+
+
+
+
+Jenkins port change:-
+ vi /etc/sysconfig
+
+Recovering Jenkins password
+------------------------------------
+cd /var/lib/jenkins ----> vi config.xml ----> Scroll to <UseSecurity> tag ----> Chnage 'true'  to 'flase' ----> restart the jenkins ----> sudo systemctl restart jenkins ----> Login to the jenkins
+
+Jenkins console ----> Manage jenkins ----> Security ----> Security Realm: You can see 'None', change 'none' to 'Jenkins own user database' ----> Apply ----> Save
+
+-cd /var/lib/jenkins ----> vi config.xml ----> You can see 'true' for security tag.
+'True' is being seen because of the changes in security realm.
+
+Jenkins console ----> Users ----> Select 'Username' of jenkins ----> Configure ----> Scroll down to see 'Password' ----> Type password ----> Apply ----> Save.
+
+Logout of the jenkins ----> Login again with new password.
+
+
+RBAC -Roll back account access (like IAM -what ever access required)
+as edrio
+ 53 2
+ 
+
+Project3 (netflix)
+
+Step 1:Clone github repo
+    Create a new pipwline ,same hello world script
+
+    Pipeline syntax:configure the github cred, sample step :Git
+
+
+Concept ofMaster and slave node:
+  Master node: Jenkins installed node ,create varous job related to diffrent enviournmenets
+  Slave node:are used to execute the job created on Master node. Jenkins will not be installed , java will be installed.

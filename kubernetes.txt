@@ -1,0 +1,127 @@
+-Kubernetes is a container orchistration platform.
+- containers are short life 
+
+-api server :take all request from external world.
+-scheduler :its schedule the works.
+-ETCD : store all information 
+-controller managements :
+
+why kubernetes used
+    1-kubernetus is a cluster
+    2- offer Auto scaling
+    3- offer Auto Healing :monitors the health state of the cluster and automatically repairs Kubernetes
+    4- enterprise level behaviour
+
+-Kubectl : its a command line interface to run the kubernetes commands
+    kubectl create -f pod.yml :create the pod
+    kubectl get pods 
+    kubectl describe pod <podname>
+    kubectl logs <podname>
+    kubectl
+
+
+
+Minikube :its a command line tool that will allow to create kubernets cluster
+
+
+    minikube start:
+    kubectl get nodes:
+
+example of container running a imagek
+-vi pod.yaml
+
+  {
+    apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80
+  }
+
+
+ kubectl create -f pod.yml :craete the pods
+
+ kubectl get pods  :to see created pods
+ kubectl get pods -o wide  :see entire details of pods
+
+
+-login to kubernets cluster: minikube ssh
+                            ssh 172.267.87.1
+
+- kubectl logs nginx  :see the logs of pods
+-kubectl delete pod nginx :delete the pods
+-kubectl describe pods : get the all information about the pod
+  
+  kubectl get all     -will get all resources details.
+
+container:
+pod : somewhere stmler to container , Dont have auto healing and scsling ability.
+deployment:using pods only , but its are inside deployment sets, it will create replicas set and help for auto scaling and auto healing.
+
+    -Deployment use to manages a template of pods and uses replica sets, whereas ReplicaSet are only use to manages the expected number of replicas.
+
+Kubectl apply -f deployment.yaml
+    it will create a deployment -> kubectl get deployment
+    deployment will create a replica set for us -> kubectl get rs 
+    replica set will create pods for us ->kubectl get pods
+
+    Deploy -->replica set --> pods
+
+kubextl get all
+kubectl get pods -w  --> to monitor the pods activity 
+    
+
+kubernets services:  enthinaan (auto healing ollath kond (new pods up aavumbol) ,ip address change avum, so traffic mange cheyyan)
+        - load balancing :
+        - service discovery : pods will identify using label and selectors
+        - expose to external world 
+    
+    -load balencer type  :Any body can access   eg :Amazon.com
+    -Node port type mode: only can access who have access to worker Node eg: (people who have in office)
+    - cluster ip mode :only can access who have access to kubernets cluster network eg :devops enginner ,aws engineer
+
+
+Interview question 
+1- what is the diffrence between docker and kubernstus
+Ans: docker is a container platform , K8 is container orchstation  enviournment that offers capabilities like autohealing, auto scaling,
+     clusturing and enterprise level support like loadbalencing.
+     
+2- what are the main components of K8 architecture
+Ans : 1- control plane:APi server, sheduler, control manager, ETCD 
+           -api server :take all request from external world.
+            -scheduler :its schedule the works.
+            -ETCD : store all information 
+            -controller managements :
+      2- Data plane :kubelet-managing the pod , kube-proxy- networking components , contaioner runtime-
+
+
+3-diffrence b/w k8 and docker swarm.
+    k8 is better suited for large and middle orgainaisation, k8 is offers more scalablity.k8 huge 3rd party support.
+
+4- diffrence b//w docker container and k8 pods 
+    k8 pods is a run time specification of a container
+
+5- what is a namespace in k8
+    namespace is a logical isolation of resources, network,policies, rbac and everything.
+
+6- what is the role of kube-proxy
+    kube-proxy basically about configuring the networking eules in each of the node.
+
+7- what are the diffrent services in K8
+         - load balancing :
+        - service discovery : pods will identify using label and selectors
+        - expose to external world
+
+8- diffrence b/w load balencer and NodePort service
+
+9- what is the role of kubelet
+    kubelet manage the containers that are sheduled to run on that node.it ensure that containers are running healhy, and that the resourcesthey need are available.
+
+10- Day to Day activites in K8
+    we mange k8 cluster our organaisation.we ensure applications are deployed on k8 cluster.and ensure there is no issue with application 
+    and we setup motiotoring on k8 cluster .....
